@@ -1,0 +1,89 @@
+<?php
+include "../inc/db.php";
+
+include "../inc/header.php";
+if(isset($_SESSION['dlogin'])){
+?>
+<html>
+<head>
+<title>Patient log</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style>
+.bord
+{
+	padding:20px;
+	background-color:white;
+	border: 1px solid #CACACA;
+	border-radius:8px;
+}
+</style>
+</head>
+<body style="background-color:#FAFAFA;">
+<?php
+if(isset($_POST['submit']))
+{
+$pids = mysqli_real_escape_string($con,$_POST['pid']);
+$_SESSION['pid'] = $pids;
+$sql = "select * from patient_details where pid = ".$_SESSION['pid'];
+if($result=mysqli_query($con,$sql))
+{
+	if($row = mysqli_fetch_assoc($result))
+	$_SESSION['pname'] = $row['fname'];
+	{
+		if(!isset($row['pid']))
+		{$_SESSION['errormsg'] = "Error. No match found !";
+      
+			header("Location: doctorhome.php"); 
+		}
+	}
+}
+}
+else {
+	$_SESSION['pid'];
+	$_SESSION['pname'];
+	}
+?>
+ <br /> <br />
+<div class="container-fluid">
+<div class="row">
+	<div class="col-lg-2">
+    <button type="button" class="btn btn-primary" onClick="window.location.href='dashboard'">
+    <i class="glyphicon glyphicon-dashboard"></i> &nbsp;Dashboard</button>
+    </div>
+    <div class="col-xs-offset-11">
+       <button type="button" class="btn btn-danger" onClick="window.location.href='logout.php'">
+       <i class="glyphicon glyphicon-log-out"></i> &nbsp;Logout</button>
+       
+    </div>
+<div class="col-sm-4"></div>
+<div class="col-sm-4 bord" style="margin-bottom:40px;">
+<h3><center>WELCOME Dr. <?php echo $_SESSION['dname'];?>!!</center></h3><br />
+<center>
+<table>
+<tr><td><label>Patient ID:</label></td><td></td><td>&nbsp;&nbsp; <?php echo $_SESSION['pid']; ?></td></tr>
+<tr>
+<td><label>Patient Name:</label></td>
+<td></td>
+<td>&nbsp;&nbsp; <?php echo $_SESSION['pname']; ?></td>
+</tr>
+</table><br /><br />
+</center>
+<button type="button" onClick="location.href = 'history';" class="btn btn-danger btn-block btn-lg">View Older History</button><br></br>
+<button type="button" onClick="location.href = 'labworks.php';" class="btn btn-success btn-block btn-lg">Lab/Diagnostic Reports</button><br></br>
+<button type="button" onClick="location.href = 'SocialHistory';" class="btn btn-info btn-block btn-lg">Social History</button><br></br>
+<button type="button" onClick="location.href = 'General';" class="btn btn-warning btn-block btn-lg">General</button><br></br>
+</div>
+<div class="col-sm-4"></div>
+</div>
+</div>
+<?php
+include "../inc/footer.php";
+ ?>
+</body>
+</html>
+<?php 
+}
+else {
+	header('Location: ../login/doclog.php');
+	}
+?>
