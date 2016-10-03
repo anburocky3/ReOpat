@@ -1,0 +1,35 @@
+p.headerMod
+{
+color:#47A3FF;
+font-size: 500%;
+}
+h2.headerModDes
+{
+color:#FF4D4D;
+}
+.downBB
+{
+border-bottom: 3px solid #DFFF7E;
+}
+.log
+{
+margin-top: 10px;
+background-color:#FFCC00;
+border-radius:8px;
+}
+.glyphicon
+{
+font-size: 700%;
+color:white;
+}
+p.discSiz
+{
+font-size: 120%;
+color:#303031;
+}
+
+div.bgDesc
+{
+background-color:#F0F0F5;
+border-radius: 8px;
+}
